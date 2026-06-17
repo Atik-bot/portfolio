@@ -1,0 +1,117 @@
+/* ============================================================
+   about.css — two-column about with the portrait card
+   (moved here from the hero, slightly larger)
+   ============================================================ */
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: var(--sp-12);
+  align-items: start;
+}
+
+/* ----- Portrait card (same treatment the hero used) ----- */
+.about__card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--clr-border-strong);
+  box-shadow: var(--shadow-card);
+  max-width: 420px;            /* "a bit larger" than the old hero card */
+  justify-self: center;
+  transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med);
+}
+
+/* Gentle lift + tilt on hover */
+.about__card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.about__card img {
+  width: 100%;
+  aspect-ratio: 4 / 4.6;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Name + status overlay at the card's bottom */
+.about__card-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--sp-10) var(--sp-5) var(--sp-5);
+  background: linear-gradient(to top,
+              rgba(4, 7, 14, 0.92) 0%,
+              rgba(4, 7, 14, 0.55) 55%,
+              transparent 100%);
+  color: #E8EAF0; /* fixed: sits on the photo, not the theme background */
+}
+
+.about__card-status {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9aa3b8;
+}
+
+.about__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--clr-success);
+  animation: pulse 2s infinite;
+}
+
+.about__card-name {
+  margin-top: var(--sp-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* ----- Text column ----- */
+.about__body p + p { margin-top: var(--sp-4); }
+
+.about__body strong { color: var(--clr-primary); font-weight: 600; }
+
+/* Key facts grid */
+.about__facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+.about__fact {
+  padding: var(--sp-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  background: var(--clr-bg-elevated);
+  transition: border-color var(--dur-fast), transform var(--dur-fast) var(--ease-out);
+}
+
+.about__fact:hover {
+  border-color: var(--clr-primary);
+  transform: translateY(-2px);
+}
+
+.about__fact dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-1);
+}
+
+.about__fact dd { font-weight: 600; font-size: var(--fs-sm); }
+
+@media (max-width: 800px) {
+  .about__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+  .about__card { max-width: 340px; }
+  .about__facts { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}

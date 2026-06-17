@@ -1,0 +1,224 @@
+/* ============================================================
+   contact.css — iOS-style glassmorphism contact section
+   Translucent blurred cards, big social tiles, animated form.
+   ============================================================ */
+
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient color glow behind the glass (gives the blur something to refract) */
+.contact__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(420px 420px at 18% 30%, var(--clr-primary-soft), transparent 70%),
+    radial-gradient(480px 480px at 85% 75%, var(--clr-accent-soft), transparent 70%);
+  animation: glow-drift 14s ease-in-out infinite alternate;
+}
+
+@keyframes glow-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(0, -30px, 0) scale(1.08); }
+}
+
+.contact .container { position: relative; z-index: 1; }
+
+/* ----- Shared glass card ----- */
+.glass-card {
+  background: color-mix(in srgb, var(--clr-bg-elevated) 55%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid color-mix(in srgb, var(--clr-text) 12%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--clr-text) 8%, transparent),
+              var(--shadow-card);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: var(--sp-8);
+  align-items: start;
+}
+
+/* ----- Info cards (left) ----- */
+.contact__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.contact__info {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast);
+}
+
+a.contact__info:hover {
+  transform: translateX(6px);
+  border-color: var(--clr-primary);
+}
+
+.contact__info-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--clr-primary-soft);
+  color: var(--clr-primary);
+}
+
+.contact__info-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+.contact__info-value {
+  display: block;
+  margin-top: 2px;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  word-break: break-word;
+}
+
+/* ----- Big social tiles ----- */
+.contact__socials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+  margin-top: var(--sp-2);
+}
+
+.social-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1.6;
+  color: var(--clr-text-muted);
+  transition: transform var(--dur-fast) var(--ease-out),
+              color var(--dur-fast),
+              border-color var(--dur-fast),
+              box-shadow var(--dur-fast);
+}
+
+.social-tile:hover {
+  transform: translateY(-5px);
+  color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--clr-primary) 18%, transparent);
+}
+
+.social-tile svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.social-tile:hover svg { transform: scale(1.12); }
+
+/* ----- Glass form (right) ----- */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-8);
+}
+
+.contact__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.form-field label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+.form-field input,
+.form-field textarea {
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid color-mix(in srgb, var(--clr-text) 14%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--clr-bg) 55%, transparent);
+  color: var(--clr-text);
+  font-size: var(--fs-sm);
+  resize: vertical;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast),
+              transform var(--dur-fast);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: var(--clr-text-muted); opacity: 0.6; }
+
+/* Focus glow — the "alive" feel */
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 4px var(--clr-primary-soft);
+}
+
+.form-field input:not(:placeholder-shown):invalid,
+.form-field textarea:not(:placeholder-shown):invalid {
+  border-color: var(--clr-error);
+}
+
+.contact__submit {
+  align-self: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Paper-plane nudge on hover */
+.contact__submit svg { transition: transform var(--dur-fast) var(--ease-out); }
+.contact__submit:hover svg { transform: translate(3px, -3px); }
+
+/* Sheen sweep across the submit button */
+.contact__submit::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left var(--dur-slow) var(--ease-out);
+}
+.contact__submit:hover::after { left: 130%; }
+
+.contact__form-note {
+  font-size: var(--fs-caption);
+  color: var(--clr-text-muted);
+  min-height: 1.2em;
+}
+.contact__form-note.is-success { color: var(--clr-success); }
+.contact__form-note.is-error { color: var(--clr-error); }
+
+/* Staggered reveal inside the contact section */
+.contact .reveal { transition-delay: calc(var(--stagger-c, 0) * 80ms); }
+
+/* ----- Responsive ----- */
+@media (max-width: 800px) {
+  .contact__grid { grid-template-columns: 1fr; }
+  .contact__form { padding: var(--sp-5); }
+  .contact__form-row { grid-template-columns: 1fr; }
+}

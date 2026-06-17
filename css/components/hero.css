@@ -1,0 +1,179 @@
+/* ============================================================
+   hero.css — text-only centered hero with oversized headline
+   ============================================================ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-block: calc(64px + var(--sp-16)) var(--sp-16);
+}
+
+/* Animated node-graph background (drawn by js/graph-canvas.js) */
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Vignette keeps text readable over the canvas */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at 50% 45%,
+              transparent 0%,
+              color-mix(in srgb, var(--clr-bg) 60%, transparent) 70%,
+              var(--clr-bg) 100%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+}
+
+/* The name — prominent, between eyebrow and headline */
+.hero__name {
+  margin-top: var(--sp-3);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  letter-spacing: -0.01em;
+  color: var(--clr-primary);
+}
+
+.hero__headline {
+  margin-top: var(--sp-6);
+  font-size: clamp(2.4rem, 6.4vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.hero__line { display: block; }
+
+/* One line carries the accent */
+.hero__line--accent { color: var(--clr-primary); }
+
+/* Line-by-line rise on load (kicked off by js/typing.js) */
+.hero.is-loaded .hero__line {
+  animation: line-rise 700ms var(--ease-out) both;
+}
+.hero.is-loaded .hero__line:nth-child(1) { animation-delay: 80ms; }
+.hero.is-loaded .hero__line:nth-child(2) { animation-delay: 180ms; }
+.hero.is-loaded .hero__line:nth-child(3) { animation-delay: 280ms; }
+.hero.is-loaded .hero__line:nth-child(4) { animation-delay: 380ms; }
+
+@keyframes line-rise {
+  from { opacity: 0; transform: translateY(0.45em); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero__tagline {
+  margin-top: var(--sp-6);
+  max-width: 58ch;
+  color: var(--clr-text-muted);
+}
+
+.hero__tagline strong { color: var(--clr-text); font-weight: 600; }
+
+/* ----- Typing line ----- */
+.hero__typed {
+  margin-top: var(--sp-5);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.hero__typed-text { color: var(--clr-primary); }
+
+.hero__caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: var(--clr-primary);
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+
+.hero__location {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-6);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+}
+
+/* ----- Scroll hint ----- */
+.hero__scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--sp-6);
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 24px;
+  height: 44px;
+  border: 2px solid var(--clr-border-strong);
+  border-radius: var(--radius-full);
+  display: flex;
+  justify-content: center;
+  padding-top: var(--sp-2);
+}
+
+.hero__scroll-line {
+  width: 3px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--clr-primary);
+  animation: scroll-hint 1.8s var(--ease-out) infinite;
+}
+
+@keyframes scroll-hint {
+  0%   { transform: translateY(0); opacity: 1; }
+  70%  { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+/* Staggered entrance for hero children */
+.hero .reveal { transition-delay: calc(var(--stagger, 0) * 90ms); }
+
+/* ----- Responsive ----- */
+@media (max-width: 600px) {
+  .hero__headline { font-size: clamp(2rem, 9.5vw, 2.8rem); }
+}

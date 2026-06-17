@@ -1,0 +1,87 @@
+/* ============================================================
+   education.css — degree cards + certification line
+   ============================================================ */
+
+.education__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: var(--sp-5);
+}
+
+.edu-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-6);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  background: var(--clr-bg-elevated);
+  transition: border-color var(--dur-fast), transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast);
+}
+
+.edu-card:hover {
+  border-color: var(--clr-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.edu-card__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--clr-primary-soft);
+  color: var(--clr-primary);
+  margin-bottom: var(--sp-4);
+}
+
+.edu-card__years {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.12em;
+  color: var(--clr-primary);
+}
+
+.edu-card__degree {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.edu-card__school {
+  margin-top: var(--sp-2);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+
+.edu-card__detail {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  flex-grow: 1;             /* pushes the GPA badge to the bottom */
+}
+
+.edu-card__gpa {
+  margin-top: var(--sp-4);
+  align-self: flex-start;
+}
+
+/* Certification line under the grid */
+.education__cert {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+  padding: var(--sp-4) var(--sp-5);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  background: var(--clr-bg-elevated);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  width: fit-content;
+}
+
+.education__cert svg { color: var(--clr-accent); flex-shrink: 0; }
+.education__cert strong { color: var(--clr-text); }

@@ -1,0 +1,71 @@
+/* ============================================================
+   timeline.css — vertical timeline (education + experience)
+   ============================================================ */
+
+.timeline {
+  position: relative;
+  max-width: 720px;
+  padding-left: var(--sp-8);
+}
+
+/* The vertical spine */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--clr-border);
+}
+
+.timeline__item {
+  position: relative;
+  padding-bottom: var(--sp-10);
+}
+
+.timeline__item:last-child { padding-bottom: 0; }
+
+/* Node markers on the spine */
+.timeline__marker {
+  position: absolute;
+  left: calc(-1 * var(--sp-8) + 1px);
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--clr-bg);
+  border: 3px solid var(--clr-border-strong);
+}
+
+/* The newest entry pulses teal */
+.timeline__marker--active {
+  border-color: var(--clr-primary);
+  animation: pulse 2s infinite;
+}
+
+.timeline__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--clr-primary);
+  letter-spacing: 0.06em;
+}
+
+.timeline__title {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  margin-top: var(--sp-1);
+}
+
+.timeline__desc {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  max-width: 60ch;
+}
+
+.timeline__desc a {
+  color: var(--clr-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

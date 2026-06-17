@@ -1,0 +1,82 @@
+/* ============================================================
+   skills.css — categorized skill cards with proficiency dots
+   ============================================================ */
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--sp-5);
+}
+
+.skill-card {
+  padding: var(--sp-6);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  background: var(--clr-bg-elevated);
+  transition: border-color var(--dur-fast), transform var(--dur-fast) var(--ease-out);
+}
+
+.skill-card:hover {
+  border-color: var(--clr-primary);
+  transform: translateY(-3px);
+}
+
+.skill-card__title {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+/* Rows with proficiency dots */
+.skill-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-sm);
+}
+
+.skill-dots { display: inline-flex; gap: var(--sp-1); }
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--clr-border-strong);
+  /* Dots animate in when the card scrolls into view */
+  transform: scale(0.4);
+  opacity: 0.4;
+  transition: transform var(--dur-med) var(--ease-out),
+              opacity var(--dur-med),
+              background-color var(--dur-med);
+}
+
+.dot--on { background: var(--clr-primary); }
+
+/* Staggered pop-in once the parent .reveal becomes visible */
+.is-visible .dot {
+  transform: scale(1);
+  opacity: 1;
+}
+.is-visible .dot:nth-child(1) { transition-delay: 100ms; }
+.is-visible .dot:nth-child(2) { transition-delay: 200ms; }
+.is-visible .dot:nth-child(3) { transition-delay: 300ms; }
+.is-visible .dot:nth-child(4) { transition-delay: 400ms; }
+
+/* Legend in the section subtitle */
+.dots-legend { display: inline-flex; gap: 3px; vertical-align: middle; }
+.dots-legend .dot { transform: scale(1); opacity: 1; width: 7px; height: 7px; }
+
+/* Tag-style lists */
+.skill-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
